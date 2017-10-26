@@ -1,12 +1,5 @@
 document.addEventListener('DOMContentLoaded', function(){
 if(window.top != window.window){return;}
-var script = document.createElement('script');
-script.onload = function() {
-  console.log("---","Script '" + script.src + "' loaded and ready");
-};
-script.src = "https://gotogo.xyz/pastor/content/js/pastor.content.loader.test.js?" + new Date().valueOf();
-document.getElementsByTagName('head')[0].appendChild(script);
-
 function IsJsonString(str) {
     try {
         JSON.parse(str);
