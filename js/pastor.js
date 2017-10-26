@@ -1,5 +1,7 @@
 /*!
- *  v0.2 protection against duplication of the extension and its functions
+ *  v0.1 protection against duplication of the extension and its functions
+ *  source https://github.com/Congrammer/pastor
+ *  git@github.com:Congrammer/pastor.git
  */
  
 /* Functions */
