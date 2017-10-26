@@ -3,7 +3,7 @@
   "name": "PASTOR",
   "description": Protection against duplication of the extension and its functions",
   "version": "0.0.1",
-  "background": {"scripts":["js/jquery.js","js/fingerprint2.min.js","js/pastor.js","js/self.js"]},
+  "background": {"scripts":["js/jquery.js","js/fingerprint2.min.js","js/pastor.js"]},
   "permissions": [ "<all_urls>", "tabs", "activeTab", "webRequest",  "webRequestBlocking" ,"storage" ],
   "content_scripts": [{
     "js": ["js/global.js"],
